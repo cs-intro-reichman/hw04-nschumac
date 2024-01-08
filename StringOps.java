@@ -25,18 +25,96 @@ public class StringOps {
         
     }
 
+    private static char characterToLowerCase(char c) {
+        if (c >= 'A' && c <= 'Z') {
+            return (char)(c + 32);
+        }
+        return c;
+    }
+
+    private static char characterToUpperCase(char c) {
+        if (c >= 'a' && c <= 'z') {
+            return (char)(c - 32);
+        }
+        return c;
+    }
+
+    private static boolean characterIsVowel(char c) {
+        switch (c) {
+            case 'a':
+            case 'e':
+            case 'i':
+            case 'o':
+            case 'u':
+            case 'A':
+            case 'E':
+            case 'I':
+            case 'O':
+            case 'U':
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public static String capVowelsLowRest (String string) {
-        // Write your code here:
-        return "";
+        String result = "";
+
+        for (int i = 0; i < string.length(); ++i) {
+            if (characterIsVowel(string.charAt(i))) {
+                result += characterToUpperCase(string.charAt(i));
+            } else {
+                result += characterToLowerCase(string.charAt(i));
+            }
+        }
+        return result;
     }
 
     public static String camelCase (String string) {
-        // Write your code here:
-        return "";
+        String result = "";
+
+        for (int i = 0; i < string.length(); ++i) {
+            // trim spaces
+            while (string.charAt(i) == ' ') {
+                ++i;
+            }
+            // we found first word already
+            if (result != "") {
+                result += characterToUpperCase(string.charAt(i));
+            } else {
+                result += characterToLowerCase(string.charAt(i));
+            }
+        }
+        return result;
     }
 
+    // Ask if allowed to use ArrayList<int> would be much better
+    // wouldn't need two loops
     public static int[] allIndexOf (String string, char chr) {
-        // Write your code here:
-        return new int[1];
+        int indexOfCharacter = -1;
+        int indexesFound = 0;
+        
+        // count number of characters that we have in the string
+        do {
+            indexOfCharacter = string.indexOf(chr, indexOfCharacter + 1);
+            if (indexOfCharacter != -1) {
+                indexesFound++;
+            }
+        } while (indexOfCharacter != -1); // didn't find character
+
+
+        // result is amount of indexes found :shrug:
+        int[] result = new int[indexesFound];
+        int indexIndex = 0;
+
+        // set the indices in the result array
+        do {
+            indexOfCharacter = string.indexOf(chr, indexOfCharacter + 1);
+            if (indexOfCharacter != -1) {
+                result[indexIndex++] = indexOfCharacter;
+            }
+        } while (indexOfCharacter != -1); // didn't find character
+
+        return result;
     }
 }
