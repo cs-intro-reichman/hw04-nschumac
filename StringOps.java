@@ -78,8 +78,10 @@ public class StringOps {
             while (string.charAt(i) == ' ') {
                 ++i;
             }
-            // we found first word already
-            if (result != "") {
+
+            // we found first character already, make first character
+            // of new word uppercase
+            if (result != "" && string.charAt(i - 1) == ' ') {
                 result += characterToUpperCase(string.charAt(i));
             } else {
                 result += characterToLowerCase(string.charAt(i));
